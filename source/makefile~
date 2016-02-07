@@ -1,0 +1,9 @@
+kalah:
+	javac -Xlint:unchecked -d /home/ubuntu/Programming/GameLink/1.4/classes  algorithms/*.java
+	javac -Xlint:unchecked -d /home/ubuntu/Programming/GameLink/1.4/classes  org/gamelink/game/Kalah.java
+	javac -Xlint:unchecked -d /home/ubuntu/Programming/GameLink/1.4/classes  org/gamelink/game/KalahGameBoard.java
+	
+cram:
+	javac -Xlint:unchecked -d /home/ubuntu/Programming/GameLink/Development/1.4/classes  algorithms/*.java
+	javac -Xlint:unchecked -d /home/ubuntu/Programming/GameLink/Development/1.4/classes  org/gamelink/game/Cram.java
+	javac -Xlint:unchecked -d /home/ubuntu/Programming/GameLink/Development/1.4/classes  org/gamelink/game/CramGameBoard.java
