@@ -49,7 +49,7 @@ public class CramTournamentSimulator{
 * of the tournament to the results file.
 */
 class Player1Simulator extends Thread{
-	private static final String RESULTS_FILE_PATH = "./Results/" + generateUniqueFileName() + ".txt";
+	private static final String RESULTS_FILE_PATH = "Results" + ".txt";
 	private static ArrayList<Class<?>> algoList;
 	private static ArrayList<Team> teamList;
 	private static ArrayList<Match> matchList;

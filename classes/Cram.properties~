@@ -1,6 +1,0 @@
-InitialCells=2
-BoardHeight=5
-BoardWidth=5
-MoveTimeLimit=30
-DisplayBoard=true
-MoveDelay=0

@@ -1,0 +1,12 @@
+SET pathname=C:\Users\Michelle\Desktop\GameLink-TA-Release-Sem2-master
+cd "%pathname%\classes\algorithms"
+del *.*
+cd ..
+cd ..
+cd source/
+javac -Xlint:unchecked -d %pathname%\classes algorithms\*.java
+javac -Xlint:unchecked -d %pathname%\classes org\gamelink\main\KalahTournamentSimulator.java
+cd ..
+cd classes
+java org.gamelink.main.KalahTournamentSimulator
+pause
