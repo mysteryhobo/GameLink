@@ -1,0 +1,7 @@
+How to run the GameLink Program
+
+1. place the student's .java files in the algorithms folder in the source directory (	be sure to delete any files that are already in there)
+2. go into the batchfiles folder and open the desired txt file in a text editor
+3. change the top line of the batch file to the filepath to where the gamelink prgram 	is contained on your computer
+4. save the edited txt file as a .bat (batch) or makefile file to the main gamelink 	directory (gameLink home)
+5. double click on the new batch file to run the program (windows) or use the make command to run the make file (linux)
