@@ -294,7 +294,7 @@ protected boolean validateAndApplyMove(String opponentMove, String oldBoardAsStr
 	if (!areBoardsEqual(gameBoard, opponentOldBoard)) return false;
 	if (opponentMove.length() != 1) return false;
 	int oppMove = Character.getNumericValue(opponentMove.charAt(0));
-	if (1 > oppMove && oppMove > boardWidth - 1) return false;
+	if (1 > oppMove || oppMove > boardWidth - 1) return false;
 	if (gameBoard[oppSide][moveToCell(oppMove, oppSide)] == 0) return false;
 	int[][] testNewBoard = copyBoard(gameBoard);
 	int oppTurn = Integer.valueOf(whosTurn);
@@ -317,7 +317,7 @@ protected boolean validateAndApplyMove(String opponentMove, String oldBoardAsStr
 protected boolean validateAndApplyMove(String playerMove) throws NumberFormatException {
 	if (playerMove.length() != 1) return false;
 	int move = Character.getNumericValue(playerMove.charAt(0));
-	if (1 > move && move > boardWidth - 1) return false;
+	if (1 > move || move > boardWidth - 1) return false;
 	if (gameBoard[mySide][moveToCell(move, mySide)] == 0) return false;
 	if (!applyMove(gameBoard, move, mySide)) {
 		if (whosTurn == 1) update(2);
