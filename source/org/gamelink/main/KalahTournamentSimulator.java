@@ -27,13 +27,24 @@ public class KalahTournamentSimulator{
 			(new Player1Simulator()).start();
 			(new Player2Simulator()).start();
 		} else {
-			if (args[0].equals("1")) {
-				(new Player1Simulator(true)).start();
-			} else if (args[0].equals("2")) {
-				(new Player2Simulator(true)).start();
+			if(args.length == 1) {
+				if (args[0].equals("1")) {
+					(new Player1Simulator(true, 0)).start();
+				} else if (args[0].equals("2")) {
+					(new Player2Simulator(true, 0)).start();
+				} else {
+					System.out.println("Error: Invalid Command Line Argument");
+					System.out.println("Please enter 1 or 2 for the player you wish to simulate");
+				}
+			} else if (args.length == 2) {	
+				if (args[0].equals("1")) (new Player1Simulator(true, Integer.parseInt(args[1]))).start();
+				if (args[0].equals("2")) (new Player2Simulator(true, Integer.parseInt(args[1]))).start();
+				if (args[0].equals("0")) {
+					(new Player1Simulator(false, Integer.parseInt(args[1]))).start();
+					(new Player2Simulator(false, Integer.parseInt(args[1]))).start();
+				}
 			} else {
-				System.out.println("Error: Invalid Command Line Argument");
-				System.out.println("Please enter 1 or 2 for the player you wish to simulate");
+				System.out.println("Invalid arguments");
 			}
 		}
 	}
@@ -53,20 +64,21 @@ class Player1Simulator extends Thread{
 	private final int PLAYER2 = 2;
 	public final int MAX_NAME_LENGTH = 13;
 	private boolean distributedMode = false;
+	private int matches = 0;
 
 	KalahDisplay display = new KalahDisplay(PLAYER1);
 
 	public Player1Simulator(){}
 
-	public Player1Simulator(boolean distributedMode) {
-		InetAddress ip = Link.getNonLoopbackAddress();
-        System.out.println("Address: " + ip.toString().substring(1));
+	public Player1Simulator(boolean distributedMode, int matches) {
+        System.out.println("Address: " + Link.getNonLoopbackAddress().toString().substring(1));
+        this.matches = matches;
 	}
 
 	/**Simulates all games of the tournament from the perspective of player 1 while writting the results to the results file */
 	@Override
 	public void run(){
-		Scheduler tournament = new Scheduler();
+		Scheduler tournament = new Scheduler(false, matches);
 		algoList = tournament.getAlgoList();
 		teamList = tournament.getTeamList();
 		matchList = tournament.getMatchList();
@@ -261,12 +273,14 @@ class Player2Simulator extends Thread{
 	private boolean distributedMode = false;
 	String ipAddressOfP1Simulator;
 	KalahDisplay display = new KalahDisplay(PLAYER2);
+	private int matches = 0;
 
 	public Player2Simulator(){}
 
-	public Player2Simulator(boolean distributedMode) {
+	public Player2Simulator(boolean distributedMode, int matches) {
 		this.distributedMode = distributedMode;
-		ipAddressOfP1Simulator = this.getHostIpAddressFromUser();
+		this.matches = matches;
+		if (distributedMode) ipAddressOfP1Simulator = this.getHostIpAddressFromUser();
 	}
 
 	/**
@@ -275,7 +289,7 @@ class Player2Simulator extends Thread{
 	* to post the results of the tournament to the results file
 	*/
 	public void run(){
-		Scheduler tournament = new Scheduler();
+		Scheduler tournament = new Scheduler(false, matches);
 		algoList = tournament.getAlgoList();
 		teamList = tournament.getTeamList();
 		matchList = tournament.getMatchList();

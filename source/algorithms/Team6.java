@@ -1,8 +1,7 @@
 package algorithms;
 
-import org.gamelink.game.Kalah;
+import org.gamelink.game.Cram;
 import org.gamelink.game.Algo;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Team6 extends Algo{
@@ -13,11 +12,11 @@ public class Team6 extends Algo{
     }
 
     public static void main(String[] args){
-        Kalah game = new Kalah(false);
+        Cram game = new Cram(false);
         game.startGame(Team6.class);
     }
 
-    // public static String algorithm(Kalah game){
+    // public static String algorithm(Cram game){
     //     int[][] gameBoard = game.getBoard();
     //     Scanner userInputScanner = new Scanner(System.in);
     //     System.out.print("Please enter your move: ");
@@ -25,15 +24,28 @@ public class Team6 extends Algo{
     //     return input;
     // }
 
-    public static String algorithm(Kalah game){
+    public static String algorithm(Cram game){
         int[][] gameBoard = game.getBoard();
-        int range = gameBoard[1].length - 2;
+        game.getBoard();
+        int width = gameBoard[0].length;
+        int height = gameBoard.length;
 
-        Random rand = new Random();
-
-        while(true){
-            int move = rand.nextInt(range) + 1;
-            if (gameBoard[1][move] > 0) return String.valueOf(move);
+        for (int x = 0; x < width; x ++){
+            for (int y = 0; y < height; y ++){
+                if (gameBoard[y][x] == 0 && y - 1 > 0 && gameBoard[y - 1][x] == 0) { 
+                    return Integer.toString(y) + Integer.toString(x) + Integer.toString(y - 1) + Integer.toString(x);
+                }
+                if (gameBoard[y][x] == 0 && y + 1 < height && gameBoard[y + 1][x] == 0){
+                    return Integer.toString(y) + Integer.toString(x) + Integer.toString(y + 1) + Integer.toString(x); 
+                } 
+                if (gameBoard[y][x] == 0 && x - 1 > 0 && gameBoard[y][x - 1] == 0){
+                    return Integer.toString(y) + Integer.toString(x) + Integer.toString(y) + Integer.toString(x - 1); 
+                } 
+                if (gameBoard[y][x] == 0 && x + 1 < width && gameBoard[y][x + 1] == 0){
+                    return Integer.toString(y) + Integer.toString(x) + Integer.toString(y) + Integer.toString(x + 1);
+                }      
+            }
         }
-    }
+        return null;
+    }  
 }

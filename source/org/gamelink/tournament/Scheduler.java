@@ -25,12 +25,21 @@ public class Scheduler{
 	/** An ArrayList containing all the teams participating in the tournament */
 	private ArrayList<Team> teamList = new ArrayList<Team>();
 
+	/** Limits the maximum number of matches in the tournament */
+	private int matches = 0;
 
 	/** The scheduler constructor initializes the tournament by creating all matches, Teams, and Algorithms and adding them to the corresponding ArrayList */
 	public Scheduler(){
 		this.setAlgoList();
 		this.setTeamList();
-		this.setMatchList();
+		this.setMatchList(true);
+	}
+
+	public Scheduler(boolean doubleHeaderMode, int matches){
+		this.matches = matches;
+		this.setAlgoList();
+		this.setTeamList();
+		this.setMatchList(doubleHeaderMode);
 	}
 
 	/**
@@ -91,22 +100,33 @@ public class Scheduler{
 	}
 
 	/** fills the matchList ArrayList with all matches needed to be played throughout the tournament the number of matches is determined by the number of teams as each team must play each other twice */
-	private void setMatchList(){
+	private void setMatchList(boolean doubleHeaderMode){
 		int numOfTeams = teamList.size();
 		int teamsInArray = teamList.size();
 		if (numOfTeams % 2 == 1) teamsInArray ++;
 		int[][] matchMakingArray = getArray(teamsInArray);
 		int matchCounter = 1;
+		int numberOfMatches;
 
-		for (int i = teamsInArray - 1; i > 0; i --){
+		if (matches != 0 && matches < teamsInArray - 1) numberOfMatches = matches;
+		else numberOfMatches = teamsInArray - 1;
+
+		for (int i = numberOfMatches; i > 0; i --){
 			for (int j = 0; j < (int)teamsInArray/2; j ++){
 				if (matchMakingArray[0][j] <= numOfTeams && matchMakingArray[1][j] <= numOfTeams){
-					matchList.add(new Match(matchCounter + "A", 
-											teamList.get(matchMakingArray[0][j] - 1),
-											teamList.get(matchMakingArray[1][j] - 1)));
-					matchList.add(new Match(matchCounter + "B", 
-											teamList.get(matchMakingArray[1][j] - 1),
-											teamList.get(matchMakingArray[0][j] - 1)));
+					if (doubleHeaderMode) {
+						matchList.add(new Match(matchCounter + "A", 
+							teamList.get(matchMakingArray[0][j] - 1),
+							teamList.get(matchMakingArray[1][j] - 1)));
+						matchList.add(new Match(matchCounter + "B", 
+							teamList.get(matchMakingArray[1][j] - 1),
+							teamList.get(matchMakingArray[0][j] - 1)));
+					} else {
+						matchList.add(new Match(matchCounter + "", 
+							teamList.get(matchMakingArray[0][j] - 1),
+							teamList.get(matchMakingArray[1][j] - 1)));
+					}
+
 					matchCounter ++;
 				}
 			}
