@@ -1,5 +1,4 @@
 # GameLink-TA-Release-Sem2
 
-The GameLink Platform was designed to act as an automated marking tool for use by TAs marking java coding projects.
-
-It is currently not intended for widespread use
+Gamelink is a platform for the creation, facilitating, and grading of algorithm-based coding competitions for the faculty of Software Engineering at UOIT. Students could
+create algorithms to play certain games and then compete agaist each other over the internet.
